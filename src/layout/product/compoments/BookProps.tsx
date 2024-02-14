@@ -1,31 +1,72 @@
 import React from 'react'
-import Book from '../../models/Book'
+import SachModel from '../../models/SachModel';
+import HinHAnhModel from '../../models/HinHAnhModel';
+import { layToanBoAnhCuaMotSach } from '../../../api/AnhAPI';
 
 interface BookProps {
-    book: Book;
+    book: SachModel;
 }
 
 const BookProps: React.FC<BookProps> = ({ book }) => {
+    const maSach: number = book.maSach;
+
+    const [danhSachAnh, setDanhSachAnh] = React.useState<HinHAnhModel[]>([]);
+    const [dangTaiDuLieu, setDangTaiDuLieu] = React.useState(true);
+    const [baoLoi, setBaoLoi] = React.useState(null);
+
+    React.useEffect(() => {
+        layToanBoAnhCuaMotSach(maSach).then(
+            hinhAnhData => {
+                setDanhSachAnh(hinhAnhData);
+                setDangTaiDuLieu(false);
+            }
+        ).catch(
+            error => {
+                setDangTaiDuLieu(false);
+                setBaoLoi(error.message);
+            }
+        );
+    }, [] // Chi goi mot lan
+    )
+
+    if (dangTaiDuLieu) {
+        return (
+            <div>
+                <h1>Đang tải dữ liệu</h1>
+            </div>
+        );
+    }
+
+    if (baoLoi) {
+        return (
+            <div>
+                <h1>Gặp lỗi: {baoLoi}</h1>
+            </div>
+        );
+    }
+
+    let duLieuAnh: string = "";
+    if (danhSachAnh[0] && danhSachAnh[0].duLieuAnh) {
+        duLieuAnh = danhSachAnh[0].duLieuAnh;
+    }
     return (
-        <div className="col-md-3 mt-5">
+        <div className="col-md-3 mt-2">
             <div className="card">
-                <div className='d-flex justify-content-center'>
-                    <img
-                        src={book.imageUrl}
-                        className="card-img-top"
-                        alt={book.title}
-                        style={{ width: "250px" }}
-                    />
-                </div>
+                <img
+                    src={duLieuAnh}
+                    className="card-img-top"
+                    alt={book.tenSach}
+                    style={{ height: '200px' }}
+                />
                 <div className="card-body">
-                    <h5 className="card-title">{book.title}</h5>
-                    <p className="card-text">{book.description}</p>
+                    <h5 className="card-title">{book.tenSach}</h5>
+                    <p className="card-text">{book.moTa}</p>
                     <div className="price">
                         <span className="original-price">
-                            <del>{book.originalPrice}</del>
+                            <del>{book.giaNiemYet}</del>
                         </span>
                         <span className="discounted-price">
-                            <strong>{book.price}</strong>
+                            <strong>{book.giaBan}</strong>
                         </span>
                     </div>
                     <div className="row mt-2" role="group">
