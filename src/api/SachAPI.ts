@@ -3,13 +3,26 @@ import SachModel from "../layout/models/SachModel";
 import { my_request } from "./Request";
 
 export async function getAllSach(): Promise<SachModel[]> {
-    const ketQua: SachModel[] = [];
 
     // Xác định endpoint
     const duongDan: string = 'http://localhost:8080/sach';
 
     // Gọi phương thức request
-    const response = await my_request(duongDan);
+    return getSach(duongDan);
+}
+
+export async function getTop3Sach(): Promise<SachModel[]> {
+
+    // Xác định endpoint
+    const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
+
+    // Gọi phương thức request
+    return getSach(duongDan);
+}
+
+async function getSach(path:string) : Promise<SachModel[]> {
+    const ketQua: SachModel[] = [];
+    const response = await my_request(path);
 
     // Lấy ra json sach
     const responseData = response._embedded.saches;

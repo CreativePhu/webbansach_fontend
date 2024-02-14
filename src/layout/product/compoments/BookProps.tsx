@@ -1,7 +1,7 @@
 import React from 'react'
 import SachModel from '../../models/SachModel';
 import HinHAnhModel from '../../models/HinHAnhModel';
-import { layToanBoAnhCuaMotSach } from '../../../api/AnhAPI';
+import { getNhieuAnh } from '../../../api/AnhAPI';
 
 interface BookProps {
     book: SachModel;
@@ -15,7 +15,7 @@ const BookProps: React.FC<BookProps> = ({ book }) => {
     const [baoLoi, setBaoLoi] = React.useState(null);
 
     React.useEffect(() => {
-        layToanBoAnhCuaMotSach(maSach).then(
+        getNhieuAnh(maSach).then(
             hinhAnhData => {
                 setDanhSachAnh(hinhAnhData);
                 setDangTaiDuLieu(false);
