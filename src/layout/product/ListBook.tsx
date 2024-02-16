@@ -2,16 +2,26 @@ import React, { useState } from 'react'
 import SachModel from '../models/SachModel'
 import BookProps from './compoments/BookProps'
 import { getAllSach } from '../../api/SachAPI'
+import PhanTrang from '../untils/PhanTrang'
 
 const ListBook: React.FC = () => {
     const [books, setBooks] = useState<SachModel[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [trangHienTai, setTrangHienTai] = useState<number>(1);
+    const [tongSoTrang, setTongSoTrang] = useState<number>(0)
+    const [tongSoSach, setTongSoSach] = useState<number>(0)
+
+    const phanTrang = (soTrang: number) => {
+        setTrangHienTai(soTrang);
+    }
 
     React.useEffect(() => {
-        getAllSach().then(
+        getAllSach(trangHienTai - 1).then(
             sachData => {
-                setBooks(sachData);
+                setBooks(sachData.danhSachSach);
+                setTongSoTrang(sachData.tongSoTrang)
+                setTongSoSach(sachData.soSachTrenMotTrang)
                 setIsLoading(false);
             }
         ).catch(
@@ -20,7 +30,7 @@ const ListBook: React.FC = () => {
                 setError(error.message);
             }
         );
-    }, [] // Chi goi mot lan
+    }, [trangHienTai] // Chi goi mot lan
     )
 
     if (isLoading) {
@@ -41,7 +51,7 @@ const ListBook: React.FC = () => {
 
     return (
         <div className="container">
-            <div className="row pt-5">
+            <div className="row mt-5 mb-3">
                 {
                     books.map((book) => {
                         return (
@@ -50,6 +60,7 @@ const ListBook: React.FC = () => {
                     })
                 }
             </div>
+            <PhanTrang trangHienTai={trangHienTai} tongSoTrang={tongSoTrang} phanTrang={phanTrang} />
         </div>
     )
 }

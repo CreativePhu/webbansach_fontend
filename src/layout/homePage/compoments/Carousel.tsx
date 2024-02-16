@@ -14,7 +14,7 @@ const Carousel: React.FC = () => {
     React.useEffect(() => {
         getTop3Sach().then(
             sachData => {
-                setBooks(sachData);
+                setBooks(sachData.danhSachSach);
                 setIsLoading(false);
             }
         ).catch(

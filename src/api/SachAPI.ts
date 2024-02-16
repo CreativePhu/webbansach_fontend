@@ -2,16 +2,22 @@ import React from "react";
 import SachModel from "../layout/models/SachModel";
 import { my_request } from "./Request";
 
-export async function getAllSach(): Promise<SachModel[]> {
+interface dataInterface {
+    danhSachSach: SachModel[];
+    tongSoTrang: number;
+    soSachTrenMotTrang: number;
+}
+
+export async function getAllSach(trangHienTai: number): Promise<dataInterface> {
 
     // Xác định endpoint
-    const duongDan: string = 'http://localhost:8080/sach';
+    const duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&page=${trangHienTai}&size=4`;
 
     // Gọi phương thức request
     return getSach(duongDan);
 }
 
-export async function getTop3Sach(): Promise<SachModel[]> {
+export async function getTop3Sach(): Promise<dataInterface> {
 
     // Xác định endpoint
     const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
@@ -20,13 +26,16 @@ export async function getTop3Sach(): Promise<SachModel[]> {
     return getSach(duongDan);
 }
 
-async function getSach(path:string) : Promise<SachModel[]> {
+async function getSach(path:string) : Promise<dataInterface> {
     const ketQua: SachModel[] = [];
     const response = await my_request(path);
 
     // Lấy ra json sach
     const responseData = response._embedded.saches;
-    console.log(responseData);
+    console.log(response)
+
+    const tongSoTrang: number = response.page.totalPages;
+    const tongSoSach: number = response.page.totalElements;    ;
 
     for (const key in responseData) {
         ketQua.push({
@@ -41,5 +50,5 @@ async function getSach(path:string) : Promise<SachModel[]> {
         });
     }
 
-    return ketQua;
+    return {danhSachSach: ketQua, tongSoTrang: tongSoTrang, soSachTrenMotTrang: tongSoSach};
 }
