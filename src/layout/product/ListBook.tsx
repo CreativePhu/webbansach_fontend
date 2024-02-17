@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import SachModel from '../models/SachModel'
 import BookProps from './compoments/BookProps'
-import { getAllSach } from '../../api/SachAPI'
+import { getAllSach, searchSach } from '../../api/SachAPI'
 import PhanTrang from '../untils/PhanTrang'
 
-const ListBook: React.FC = () => {
+interface ListBookProps {
+    searchKey: string;
+}
+
+const ListBook: React.FC<ListBookProps> = ({ searchKey }) => {
     const [books, setBooks] = useState<SachModel[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,20 +21,36 @@ const ListBook: React.FC = () => {
     }
 
     React.useEffect(() => {
-        getAllSach(trangHienTai - 1).then(
-            sachData => {
-                setBooks(sachData.danhSachSach);
-                setTongSoTrang(sachData.tongSoTrang)
-                setTongSoSach(sachData.soSachTrenMotTrang)
-                setIsLoading(false);
-            }
-        ).catch(
-            error => {
-                setIsLoading(false);
-                setError(error.message);
-            }
-        );
-    }, [trangHienTai] // Chi goi mot lan
+        if (searchKey !== "") {
+            searchSach(searchKey).then(
+                sachData => {
+                    setBooks(sachData.danhSachSach);
+                    setTongSoTrang(sachData.tongSoTrang)
+                    setTongSoSach(sachData.soSachTrenMotTrang)
+                    setIsLoading(false);
+                }
+            ).catch(
+                error => {
+                    setIsLoading(false);
+                    setError(error.message);
+                }
+            );
+        } else {
+            getAllSach(trangHienTai - 1).then(
+                sachData => {
+                    setBooks(sachData.danhSachSach);
+                    setTongSoTrang(sachData.tongSoTrang)
+                    setTongSoSach(sachData.soSachTrenMotTrang)
+                    setIsLoading(false);
+                }
+            ).catch(
+                error => {
+                    setIsLoading(false);
+                    setError(error.message);
+                }
+            );
+        }
+    }, [trangHienTai, searchKey] // Chi goi mot lan
     )
 
     if (isLoading) {
@@ -48,21 +68,32 @@ const ListBook: React.FC = () => {
             </div>
         );
     }
-
-    return (
-        <div className="container">
-            <div className="row mt-5 mb-3">
-                {
-                    books.map((book) => {
-                        return (
-                            <BookProps key={book.maSach} book={book} />
-                        )
-                    })
-                }
+    if (books.length === 0) {
+        return (
+            <div id='products' className="container">
+                <div className="row mt-5 mb-3">
+                    <h1>Không tìm thấy sách bạn cần !</h1>
+                </div>
             </div>
-            <PhanTrang trangHienTai={trangHienTai} tongSoTrang={tongSoTrang} phanTrang={phanTrang} />
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div id='products' className="container">
+                <div className="row mt-5 mb-3">
+                    {
+                        books.map((book) => {
+                            return (
+                                <BookProps key={book.maSach} book={book} />
+                            )
+                        })
+                    }
+                </div>
+                <PhanTrang trangHienTai={trangHienTai} tongSoTrang={tongSoTrang} phanTrang={phanTrang} />
+            </div>
+        )
+    }
+
+
 }
 
 export default ListBook

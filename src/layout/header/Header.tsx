@@ -1,5 +1,13 @@
+import React from 'react'
 
-function Header() {
+interface HeaderProps {
+    searchKey: string;
+    updateSearchKey: any;
+    updateText: any;
+}
+
+const Header: React.FC<HeaderProps> = ({ searchKey, updateSearchKey, updateText }) => {
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -39,10 +47,10 @@ function Header() {
                             <a className="nav-link" aria-current="page" href="#">Liên hệ</a>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div className="d-flex" role="search">
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchKey} onChange={(e) => updateText(e)} />
+                        <button className="btn btn-outline-success" type="submit" onClick={() => updateSearchKey()}>Search</button>
+                    </div>
 
                     <ul className="navbar-nav me-1">
                         <li className="nav-item">

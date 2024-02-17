@@ -11,7 +11,7 @@ interface dataInterface {
 export async function getAllSach(trangHienTai: number): Promise<dataInterface> {
 
     // Xác định endpoint
-    const duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&page=${trangHienTai}&size=4`;
+    const duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&page=${trangHienTai}&size=8`;
 
     // Gọi phương thức request
     return getSach(duongDan);
@@ -21,6 +21,15 @@ export async function getTop3Sach(): Promise<dataInterface> {
 
     // Xác định endpoint
     const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
+
+    // Gọi phương thức request
+    return getSach(duongDan);
+}
+
+export async function searchSach(tenSach : string): Promise<dataInterface> {
+
+    // Xác định endpoint
+    const duongDan: string = `http://localhost:8080/sach/search/findByTenSachContainingIgnoreCase?tenSach=${tenSach}&sort=maSach,desc&page=0&size=8`;
 
     // Gọi phương thức request
     return getSach(duongDan);

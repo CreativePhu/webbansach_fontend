@@ -37,7 +37,7 @@ const PhanTrang: React.FC<PhanTrangInterface> = ({ trangHienTai, tongSoTrang, ph
         <nav aria-label="Page navigation example">
             <ul className="pagination">
                 <li className="page-item" onClick={() => phanTrang(1)}>
-                    <a className="page-link" href="#" aria-label="Previous">
+                    <a className="page-link" href="#products" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -45,13 +45,13 @@ const PhanTrang: React.FC<PhanTrangInterface> = ({ trangHienTai, tongSoTrang, ph
                     danhSachTrang.map(trang => {
                         return (
                             <li className={`page-item ${trangHienTai === trang ? "active" : ""}`} onClick={() => phanTrang(trang)}>
-                                <a className="page-link" href="#">{trang}</a>
+                                <a className="page-link" href='#products'>{trang}</a>
                             </li>
                         )
                     })
                 }
                 <li className="page-item" onClick={() => phanTrang(tongSoTrang)}>
-                    <a className="page-link" href="#" aria-label="Next">
+                    <a className="page-link" href="#products" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

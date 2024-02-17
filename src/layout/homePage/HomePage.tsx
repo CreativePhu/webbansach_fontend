@@ -2,12 +2,17 @@ import ListBook from '../product/ListBook'
 import Banner from './compoments/Banner'
 import Carousel from './compoments/Carousel'
 
-function HomePage() {
+
+interface HomePageProps {
+    searchKey: string;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ searchKey }) => {
     return (
         <>
             <Banner />
             <Carousel />
-            <ListBook />
+            <ListBook searchKey={searchKey} />
         </>
     )
 }
