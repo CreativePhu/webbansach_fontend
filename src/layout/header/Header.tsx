@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet, Link } from "react-router-dom";
 
 interface HeaderProps {
     searchKey: string;
@@ -27,9 +28,9 @@ const Header: React.FC<HeaderProps> = ({ searchKey, updateSearchKey, updateText 
                                 Thể loại sách
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Thể Loại 1</a></li>
-                                <li><a className="dropdown-item" href="#">Thể Loại 2</a></li>
-                                <li><a className="dropdown-item" href="#">Thể Loại 3</a></li>
+                                <li><Link className="dropdown-item" to={`/1`}>Thể Loại 1</Link></li>
+                                <li><Link className="dropdown-item" to={`/2`}>Thể Loại 2</Link></li>
+                                <li><Link className="dropdown-item" to={`/3`}>Thể Loại 3</Link></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">

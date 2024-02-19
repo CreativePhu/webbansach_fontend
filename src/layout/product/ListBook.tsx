@@ -6,9 +6,10 @@ import PhanTrang from '../untils/PhanTrang'
 
 interface ListBookProps {
     searchKey: string;
+    maTheLoai: number
 }
 
-const ListBook: React.FC<ListBookProps> = ({ searchKey }) => {
+const ListBook: React.FC<ListBookProps> = ({ searchKey, maTheLoai }) => {
     const [books, setBooks] = useState<SachModel[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -21,8 +22,8 @@ const ListBook: React.FC<ListBookProps> = ({ searchKey }) => {
     }
 
     React.useEffect(() => {
-        if (searchKey !== "") {
-            searchSach(searchKey).then(
+        if (searchKey !== "" || maTheLoai > 0) {
+            searchSach(searchKey, maTheLoai).then(
                 sachData => {
                     setBooks(sachData.danhSachSach);
                     setTongSoTrang(sachData.tongSoTrang)
@@ -50,7 +51,7 @@ const ListBook: React.FC<ListBookProps> = ({ searchKey }) => {
                 }
             );
         }
-    }, [trangHienTai, searchKey] // Chi goi mot lan
+    }, [trangHienTai, searchKey, maTheLoai] // Chi goi mot lan
     )
 
     if (isLoading) {
