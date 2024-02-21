@@ -6,6 +6,7 @@ import Footer from './layout/footer/Footer';
 import HomePage from './layout/homePage/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import About from './layout/about/About';
+import BookDetail from './layout/product/BookDetail';
 
 function App() {
   const [searchKey, setSearchKey] = useState<string>("")
@@ -27,6 +28,7 @@ function App() {
           <Route path='/' element={<HomePage searchKey={searchKey} />} />
           <Route path='/:maTheLoai' element={<HomePage searchKey={searchKey} />} />
           <Route path='/about' element={<About />} />
+          <Route path='/sach/:maSach' element={<BookDetail />} />
         </Routes>
         <Footer />
       </BrowserRouter>

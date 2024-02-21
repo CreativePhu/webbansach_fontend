@@ -11,9 +11,9 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ searchKey }) => {
 
     const { maTheLoai } = useParams();
-    let maTheLoaiNumber = 0
+    let maTheLoaiNumber: number = 0
 
-    console.log(maTheLoai)
+    // console.log(maTheLoai)
     try {
         maTheLoaiNumber = parseInt(maTheLoai + "")
     } catch (error) {

@@ -8,6 +8,10 @@ interface dataInterface {
     soSachTrenMotTrang: number;
 }
 
+interface dataInterface1 {
+    sach: SachModel | null;
+}
+
 export async function getAllSach(trangHienTai: number): Promise<dataInterface> {
 
     // Xác định endpoint
@@ -44,6 +48,32 @@ export async function searchSach(tenSach: string, maTheLoai: number): Promise<da
         return getSach(duongDan3);
     }
 
+}
+
+export async function getOneSach(maSach: number): Promise<dataInterface1> {
+
+    const path = `http://localhost:8080/sach/${maSach}`
+
+    let ketQua: SachModel | null = null;
+
+    const responseData = await my_request(path);
+
+    // console.log(responseData)
+
+    for (const key in responseData) {
+        ketQua = {
+            maSach: responseData.maSach,
+            tenSach: responseData.tenSach,
+            giaBan: responseData.giaBan,
+            giaNiemYet: responseData.giaNiemYet,
+            moTa: responseData.moTa,
+            soLuong: responseData.soLuong,
+            tenTacGia: responseData.tenTacGia,
+            trungBinhXepHang: responseData.trungBinhXepHang
+        }
+    }
+
+    return { sach: ketQua }
 }
 
 async function getSach(path: string): Promise<dataInterface> {

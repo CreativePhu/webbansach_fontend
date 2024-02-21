@@ -2,6 +2,7 @@ import React from 'react'
 import SachModel from '../../models/SachModel';
 import HinHAnhModel from '../../models/HinHAnhModel';
 import { getNhieuAnh } from '../../../api/AnhAPI';
+import { Link } from 'react-router-dom';
 
 interface BookProps {
     book: SachModel;
@@ -52,14 +53,18 @@ const BookProps: React.FC<BookProps> = ({ book }) => {
     return (
         <div className="col-md-3 mt-2">
             <div className="card">
-                <img
-                    src={duLieuAnh}
-                    className="card-img-top"
-                    alt={book.tenSach}
-                    style={{ height: '200px' }}
-                />
+                <Link to={`sach/${maSach}`}>
+                    <img
+                        src={duLieuAnh}
+                        className="card-img-top"
+                        alt={book.tenSach}
+                        style={{ height: '200px' }}
+                    />
+                </Link>
                 <div className="card-body">
-                    <h5 className="card-title">{book.tenSach}</h5>
+                    <Link to={`sach/${maSach}`} style={{ textDecoration: "none" }}>
+                        <h5 className="card-title">{book.tenSach}</h5>
+                    </Link>
                     <p className="card-text">{book.moTa}</p>
                     <div className="price">
                         <span className="original-price">

@@ -44,7 +44,7 @@ const PhanTrang: React.FC<PhanTrangInterface> = ({ trangHienTai, tongSoTrang, ph
                 {
                     danhSachTrang.map(trang => {
                         return (
-                            <li className={`page-item ${trangHienTai === trang ? "active" : ""}`} onClick={() => phanTrang(trang)}>
+                            <li key={trang} className={`page-item ${trangHienTai === trang ? "active" : ""}`} onClick={() => phanTrang(trang)}>
                                 <a className="page-link" href='#products'>{trang}</a>
                             </li>
                         )
