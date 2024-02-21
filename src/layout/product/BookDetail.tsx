@@ -4,12 +4,16 @@ import { getOneSach } from '../../api/SachAPI';
 import { useParams } from 'react-router-dom';
 import BookImages from './compoments/BookImages';
 import BookReview from './compoments/BookReview';
+import renderRating from '../untils/RenderRating';
+import FormartPriceVN from '../untils/FormartPriceVN';
 
 const BookDetail: React.FC = () => {
 
     const [book, setBooks] = React.useState<SachModel | null>(null)
     const [isLoading, setIsLoading] = React.useState<boolean>(true)
     const [error, setError] = React.useState<String | null>(null)
+
+    console.log(book)
 
     let { maSach } = useParams();
     let bookId: number = 0;
@@ -55,8 +59,12 @@ const BookDetail: React.FC = () => {
                 </div>
                 <div className="col-8">
                     <div className="row">
-                        <div className="col-8">
-                            <h3>Đánh giá chi tiết về sách</h3>
+                        <div className="col-8 text-start">
+                            <h1>{book.tenSach}</h1>
+                            <h6>{book.tenTacGia}</h6>
+                            <p>{renderRating(book.trungBinhXepHang ? book.trungBinhXepHang : 0)}</p>
+                            <p>{book.moTa}</p>
+                            <p className='text-danger' style={{ fontSize: 24 }}>{FormartPriceVN(book.giaBan)}đ</p>
                         </div>
                         <div className="col-4">
                             <h3>Phần đặt hàng</h3>

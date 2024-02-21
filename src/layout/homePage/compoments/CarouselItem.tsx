@@ -54,7 +54,7 @@ const CarouselItem: React.FC<CarouselItemInterface> = ({ book }) => {
     return (
         <div className="row align-items-center">
             <div className="col-5 text-center">
-                <img src={duLieuAnh} className="float-end" style={{ width: "300px", height: "350px" }} />
+                <img src={duLieuAnh} className="float-end" style={{ width: "350px", height: "auto", maxHeight: "437px" }} />
             </div>
             <div className="col-7">
                 <h5>{book.tenSach}</h5>

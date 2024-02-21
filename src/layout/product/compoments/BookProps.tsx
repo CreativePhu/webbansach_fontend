@@ -3,6 +3,9 @@ import SachModel from '../../models/SachModel';
 import HinHAnhModel from '../../models/HinHAnhModel';
 import { getNhieuAnh } from '../../../api/AnhAPI';
 import { Link } from 'react-router-dom';
+import renderRating from '../../untils/RenderRating';
+import { Cart, Heart } from 'react-bootstrap-icons';
+import FormartPriceVN from '../../untils/FormartPriceVN';
 
 interface BookProps {
     book: SachModel;
@@ -58,31 +61,31 @@ const BookProps: React.FC<BookProps> = ({ book }) => {
                         src={duLieuAnh}
                         className="card-img-top"
                         alt={book.tenSach}
-                        style={{ height: '200px' }}
+                        style={{ width: '100%', height: "auto", maxHeight: "380px" }}
                     />
                 </Link>
                 <div className="card-body">
                     <Link to={`sach/${maSach}`} style={{ textDecoration: "none" }}>
-                        <h5 className="card-title">{book.tenSach}</h5>
+                        <h5 className="card-title text-start">{book.tenSach}</h5>
                     </Link>
-                    <p className="card-text">{book.moTa}</p>
-                    <div className="price">
+                    <p className="card-text text-start">{renderRating(book.trungBinhXepHang ? book.trungBinhXepHang : 0)}</p>
+                    <div className="price text-start">
                         <span className="original-price">
-                            <del>{book.giaNiemYet}</del>
+                            <del>{FormartPriceVN(book.giaNiemYet)}</del>
                         </span>
-                        <span className="discounted-price">
-                            <strong>{book.giaBan}</strong>
+                        <span className="discounted-price text-danger">
+                            <strong>{FormartPriceVN(book.giaBan) + "đ"}</strong>
                         </span>
                     </div>
                     <div className="row mt-2" role="group">
                         <div className="col-6">
                             <a href="#" className="btn btn-secondary btn-block">
-                                <i className="fas fa-heart"></i>
+                                <Heart />
                             </a>
                         </div>
                         <div className="col-6">
                             <button className="btn btn-danger btn-block">
-                                <i className="fas fa-shopping-cart"></i>
+                                <Cart />
                             </button>
                         </div>
                     </div>

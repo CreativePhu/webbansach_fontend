@@ -68,7 +68,7 @@ export async function getOneSach(maSach: number): Promise<dataInterface1> {
             giaNiemYet: responseData.giaNiemYet,
             moTa: responseData.moTa,
             soLuong: responseData.soLuong,
-            tenTacGia: responseData.tenTacGia,
+            tenTacGia: responseData.tacGia,
             trungBinhXepHang: responseData.trungBinhXepHang
         }
     }
@@ -95,7 +95,7 @@ async function getSach(path: string): Promise<dataInterface> {
             giaNiemYet: responseData[key].giaNiemYet,
             moTa: responseData[key].moTa,
             soLuong: responseData[key].soLuong,
-            tenTacGia: responseData[key].tenTacGia,
+            tenTacGia: responseData[key].tacGia,
             trungBinhXepHang: responseData[key].trungBinhXepHang
         });
     }

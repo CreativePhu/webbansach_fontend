@@ -1,3 +1,4 @@
+import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
 import '../css/Footer.css'
 function Footer() {
     return (
@@ -53,9 +54,9 @@ function Footer() {
                 <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                     <p>&copy; 2023 Company, Inc. All rights reserved.</p>
                     <ul className="list-unstyled d-flex">
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"><i className="fa-brands fa-twitter"></i></a></li>
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"><i className="fa-brands fa-instagram"></i></a></li>
-                        <li className="ms-3"><a className="link-body-emphasis" href="#"><i className="fa-brands fa-facebook"></i></a></li>
+                        <li className="ms-3"><a className="link-body-emphasis" href="#"><Twitter /></a></li>
+                        <li className="ms-3"><a className="link-body-emphasis" href="#"><Instagram /></a></li>
+                        <li className="ms-3"><a className="link-body-emphasis" href="#"><Facebook /></a></li>
                     </ul>
                 </div>
             </footer>
